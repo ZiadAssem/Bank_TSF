@@ -29,39 +29,15 @@ class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          if (counter < users.length - 4) {
-            setState(
-              () {
-                counter += 5;
-              },
-            );
-          } else {
-            int increment = users.length - counter;
-            setState(
-              () {
-                counter += increment;
-              },
-            );
-          }
-        },
-      ),
       body: Column(
         children: [
           Expanded(
             child: FutureBuilder(
               future: getAllUsers(),
               builder: (context, snapshot) {
-                if (users.length < 10) {
-                  counter = users.length;
-                } else {
-                  counter = 10;
-                }
                 if (snapshot.connectionState == ConnectionState.done) {
                   return ListView.builder(
-                    itemCount: counter,
+                    itemCount: users.length,
                     itemBuilder: (context, index) {
                       int userBalance = User.fromMap(users[index]).balance;
                       int userId = index + 1;
